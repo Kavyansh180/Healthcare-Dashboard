@@ -1,6 +1,6 @@
 # 🏥 Healthcare Patient Monitoring Dashboard
 
-## 📊 Member 3 – Database Module (JDBC & MySQL)
+## 📊 My Contribution – Database Module (JDBC & MySQL)
 
 ---
 
@@ -18,7 +18,7 @@ Overall, the project demonstrates the use of Advanced Java concepts and database
 
 ## 👤 Team Member Role
 
-**Member 3: Database Developer**
+**Database Developer**
 
 ---
 
