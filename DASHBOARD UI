@@ -1,0 +1,99 @@
+import model.Patient;
+import model.Alert;
+import service.AlertService;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DashboardUI {
+
+    JFrame frame;
+    JTable table;
+    DefaultTableModel model;
+
+    AlertService alertService;
+    List<Patient> patients;
+
+    public DashboardUI() {
+
+        alertService = new AlertService();
+        patients = new ArrayList<>();
+
+        frame = new JFrame("Healthcare Patient Monitoring Dashboard");
+        frame.setSize(900, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+
+        JLabel title = new JLabel("Patient Monitoring Dashboard", JLabel.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 20));
+        frame.add(title, BorderLayout.NORTH);
+
+        String[] columns = {"ID", "Name", "Heart Rate", "Temp", "BP", "Status"};
+        model = new DefaultTableModel(columns, 0);
+
+        table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        // 🔴 COLOR ALERT SYSTEM
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus,
+                                                           int row, int column) {
+
+                Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                String status = table.getModel().getValueAt(row, 5).toString();
+
+                if (status.equals("WARNING")) {
+                    c.setBackground(Color.RED);
+                    c.setForeground(Color.WHITE);
+                } else {
+                    c.setBackground(Color.GREEN);
+                    c.setForeground(Color.BLACK);
+                }
+
+                return c;
+            }
+        });
+
+        // Sample Patients (same format as backend)
+        patients.add(new Patient(1, "Ravi Kumar", 45, "ICU", 130, 39.2, 155, 95));
+        patients.add(new Patient(2, "Priya Sharma", 30, "General", 75, 37.0, 120, 80));
+
+        refreshTable();
+
+        frame.setVisible(true);
+    }
+
+    // 🔄 Refresh table using backend logic
+    public void refreshTable() {
+
+        model.setRowCount(0);
+
+        List<Alert> alerts = alertService.checkAllPatients(patients);
+
+        for (Patient p : patients) {
+            String bp = p.getBloodPressure();
+
+            model.addRow(new Object[]{
+                    p.getPatientId(),
+                    p.getName(),
+                    p.getHeartRate(),
+                    p.getTemperature(),
+                    bp,
+                    p.getStatus()
+            });
+        }
+    }
+
+    public static void main(String[] args) {
+        new DashboardUI();
+    }
+}
