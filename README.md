@@ -1,7 +1,8 @@
 # 🏥 Healthcare Patient Monitoring Dashboard
 
 ## 📊 My Contribution – Database Module (JDBC & MySQL)
-
+Name - Kavyansh Vats
+Reg no. - 23BCE10301
 ---
 
 ## 📌 Project Overview
