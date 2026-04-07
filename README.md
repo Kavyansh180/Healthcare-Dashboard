@@ -5,7 +5,7 @@ Name - Kavyansh Vats
 Reg no. - 23BCE10301
 ---
 
-## 📌 Project Overview
+## 📌 Project Overview (Group no. 2)
 
 The **Healthcare Patient Monitoring Dashboard** is a software application developed to monitor and manage patient health data efficiently. The system is designed to store, process, and analyze vital health parameters such as heart rate, blood pressure, and body temperature.
 
